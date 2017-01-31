@@ -1,0 +1,61 @@
+File Name	Song Name	Artist / Band	Discog Number
+1	Stairway to Heaven	Led Zeppelin	
+2	Freebird	Lynyrd Skynyrd	
+3	Comfortably Numb	Pink Floyd	
+4	November Rain	Guns N' Roses	
+5	Hotel California	The Eagles	
+6	Crazy Train	Ozzy Osbourne	
+7	Windowpane	Opeth	
+8	Pull Me Under	Dream Theater	
+9	Follow the Signs	Born of Osiris	
+10	Heartbreaker	Led Zeppelin	
+11	Highway Star	Deep Purple	
+12	Sound of Muzak	Porcupine Tree	
+13	Another Day	Dream Theater	
+14	Forsaken	Dream Theater	
+15	Drive Home	Steven Wilson	
+16	Time	Pink Floyd	
+17	Sultans of Swing	Dire Straits	
+18	Fade to Black	Metallica	
+19	Harvest	Opeth	
+20	Wither	Dream Theater	
+21	Sweet Child O' Mine	Gun N' Roses	
+22	Whole Lotta Love	Led Zeppelin	
+23	Selkies: The Endless Obsession	Between the Buried and Me	
+24	The Best of Times	Dream Theater	
+25	Blood Brothers	Iron Maiden	
+26	Hollow Years	Dream Theater	
+27	While My Guitar Gently Weeps	Beatles and Eric Clapton	
+28	Alive	Pearl Jam	
+29	Light My Fire	The Doors	
+30	Dance of Death	Iron Maiden	
+31	Demonizer	Judas Priest	
+32	The Trooper	Iron Maiden	
+33	Under a Glass Moon	Dream Theater	
+34	Seize the Day	Avenged Sevenfold	
+35	Money	Pink Floyd	
+36	Walk This Way	Aerosmith	
+37	Hellrider	Judas Priest	
+38	You Shook Me All Night Long	AC/DC	
+39	Yellow Ledbetter	Pearl Jam	
+40	Honky Tonk Women	The Rolling Stones	
+41	Black Hole Sun	Soundgarden	
+42	So Far Away	Avenged Sevenfold	
+43	Victim	Avenged Sevenfold	
+44	Stash	Phish	
+45	Blaze of Glory	Bon Jovi	
+46	Sympathy for the Devil	The Rolling Stones	
+47	Cortez the Killer	Neil Young	
+48	Bohemian Rhapsody	Queen	
+49	Cocaine	Eric Clapton	
+50	Livin' on a Prayer	Bon Jovi	
+51	Whipping Post	The Allman Brothers Band	
+52	Blue Sky	The Allman Brothers Band	
+53	Crossroads	Cream	
+54	Cemetery Gates	Pantera	
+55	Purple Haze	Jimi Hendrix	
+56	Mean Street	Van Halen	
+57	Pride and Joy	Stevie Ray Vaughan	
+58	You Really Got Me	The Kinks	
+59	All Along the Watchtower	Jimi Hendrix	
+60	The Thrill is Gone	BB King	
