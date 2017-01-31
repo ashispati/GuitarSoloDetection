@@ -3,7 +3,7 @@ clear all
 clc
 
 % load feature data
-load('data_60_seg_pitch.mat');
+load('data_60.mat');
 load('selected_feature_set.mat');
 num_features = size(data(1).feature_matrix,1);
 start_feature = 1;

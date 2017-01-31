@@ -22,7 +22,7 @@ class_labels = zeros(1,M);
 for i = 1:M
    time = aggre_time_stamp(i);
    for j = 1:num_solo_sections
-       if and(time > annotations(j,1), time <= annotations(j,1) + annotations(j,3))
+       if and(time > annotations(j,1), time <= annotations(j,1) + annotations(j,2))
            class_labels(i) = 1;
            break;
        end
