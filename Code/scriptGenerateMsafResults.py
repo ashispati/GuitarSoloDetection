@@ -1,9 +1,9 @@
-# !/usr/bin/python
+# script to generate MSAF structural segmentation for the audio in dataset
 
 import os
 import ntpath
 
-inputpath = "../Dataset/Songs/New/"
+inputpath = "../Dataset/Songs/"
 outputpath = "../Dataset/Segments/"
 
 i = 1

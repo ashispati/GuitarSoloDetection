@@ -1,5 +1,5 @@
 
-function eroded_image = erode(image, mask)
+function eroded_image = Erode(image, mask)
 
 %% Erode Image
 % objective: erode the input image with a given mask, splits weakly connnected

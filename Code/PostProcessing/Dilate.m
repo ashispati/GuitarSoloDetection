@@ -1,5 +1,5 @@
 
-function dilated_image = dilate(image, mask)
+function dilated_image = Dilate(image, mask)
 
 %% Dilate Image
 % objective: dilates the input image with a given mask, connects discontinous

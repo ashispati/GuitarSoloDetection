@@ -1,3 +1,5 @@
+% script to generate the predominant pitch contours for the dataset song using Melodia
+
 close all
 clear all
 clc

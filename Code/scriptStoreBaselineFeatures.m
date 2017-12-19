@@ -1,9 +1,16 @@
+%% script to compute and store Baseline Features
+
 close all
 clear all
 clc
 
+addpath('Baseline/');
+addpath('Utils/');
+
 %% read file names
-cd('../Dataset/Songs');
+data_folder = '../Dataset/Songs/';
+annotation_folder = '../Dataset/Annotations/';
+cd(data_folder);
 filenames = dir('*.mp3');
 cd('../../Code');
 
@@ -17,7 +24,7 @@ data_points_cumulative = 0;
 
 %% iterate through files to compute features
 for i = 1:num_files
-    filename = strcat('../Dataset/Songs/',filenames(i).name);
+    filename = [data_folder,filenames(i).name];
     [x,fs] = audioread(filename);
     
     % resample
@@ -35,19 +42,13 @@ for i = 1:num_files
     data(i).filename = filenames(i).name;
     
     % compute and aggregate features
-    [feature_matrix, time_stamp] = ComputerFeaturesForFile(x, window_size, hop, fs);
+    [feature_matrix, time_stamp] = ComputeFeaturesForFile(x, window_size, hop, fs);
     len = GetLengthOfTextureWindow(fs, duration, hop);
     [data(i).feature_matrix, aggre_time_stamp] = AggregateFeatureVector(feature_matrix,len, 0.5, time_stamp);
-    
-    %      % compute segment features
-    %      filepath = filenames(i).name(1:end-4);
-    %      filepath = strcat('../Dataset/Segments/', filepath, '.txt');
-    %      segment_labels = GetSegmentFeaturesForTrack(filepath,aggre_time_stamp);
-    %      data(i).feature_matrix = [data(i).feature_matrix; segment_labels];
-    
+       
     % determine class labels from annotations
     filepath  = filenames(i).name(1:end-4);
-    filepath = strcat('../Dataset/Annotations/',filepath,'_segment.txt');
+    filepath = [annotation_folder, filepath, '_segment.txt'];
     data(i).class_labels = GetClassLabelsFromAnnotations(filepath, aggre_time_stamp);
     
     data(i).time_stamp = aggre_time_stamp;
@@ -57,3 +58,6 @@ for i = 1:num_files
 end
 
 save('data_60.mat','data');
+
+rmpath('Baseline/');
+rmpath('Utils/');

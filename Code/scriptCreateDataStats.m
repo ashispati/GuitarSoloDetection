@@ -1,5 +1,6 @@
+%% script to generate dataset statistics
 
-%% read file names
+% read file names
 anno_dir = '../Dataset/Annotations/';
 song_dir = '../Dataset/Songs/';
 cd(song_dir);

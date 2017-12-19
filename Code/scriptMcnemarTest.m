@@ -1,3 +1,5 @@
+%% script to run McNemar significance test on results
+
 close all 
 clear all
 clc

@@ -1,5 +1,5 @@
 
-function grouped_activation = groupActivation(activation, time_stamp, thres)
+function grouped_activation = GroupActivation(activation, time_stamp, thres)
 
 %% Group Activation
 % objective: group discontinous regions of a marker vector to form

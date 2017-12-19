@@ -1,13 +1,17 @@
+%% script to run Cross Validation evaluation test
+
 close all
 clear all
 clc
 
+addpath('PostProcessing/');
+addpath('Utils/');
+
 % load feature data
-load('data_60.mat');
-load('selected_feature_set.mat');
+load('data_60_seg_pitch.mat'); % change this for different feature combination
 num_features = size(data(1).feature_matrix,1);
 start_feature = 1;
-feature_set = start_feature:num_features;%best_feature_set;
+feature_set = start_feature:num_features;
 length_optimal_feature_set = length(feature_set);
 num_files = length(data);
 num_features = size(data(1).feature_matrix,1);
@@ -112,12 +116,13 @@ for fold_idx = 1:num_folds
         
         % collate SVM predictions
         
-        mask = ones(3,1);
-        predicted_label = +dilate(predicted_label, mask);
-        mask = ones(3,1);
-        predicted_label = +erode(predicted_label, mask);
         
-        predicted_label = groupActivation(predicted_label, time_stamp, 4);
+        mask = ones(3,1);
+        predicted_label = +Dilate(predicted_label, mask);
+        mask = ones(3,1);
+        predicted_label = +Erode(predicted_label, mask);
+        
+        predicted_label = GroupActivation(predicted_label, time_stamp, 4);
         
         
         % assign outputs
@@ -132,11 +137,17 @@ for fold_idx = 1:num_folds
         svm_output(num_files_processed).solo_accuracy = conf_mat(2,2) / sum_conf_mat(2);
         svm_output(num_files_processed).macro_accuracy = (svm_output(num_files_processed).solo_accuracy + svm_output(num_files_processed).nonsolo_accuracy) / 2;
         svm_output(num_files_processed).micro_accuracy = sum(diag(conf_mat)) / sum(sum(conf_mat));
-        r1_conf_mat = confusionmat(test_label',zeros(size(predicted_label)));
-        svm_output(num_files_processed).r1_accuracy = sum(diag(r1_conf_mat)) / sum(sum(r1_conf_mat));
         svm_output(num_files_processed).precision = conf_mat(2,2) / (conf_mat(2,2) + conf_mat(1,2));
         svm_output(num_files_processed).recall = conf_mat(2,2) / (conf_mat(2,2) + conf_mat(2,1));
         svm_output(num_files_processed).specificity = conf_mat(1,1) / (conf_mat(1,1) + conf_mat(1,2));
+        
+        r1_conf_mat = confusionmat(test_label',zeros(size(predicted_label)));
+        sum_r1_conf_mat = sum(r1_conf_mat,2);
+        svm_output(num_files_processed).r1_micro_accuracy = sum(diag(r1_conf_mat)) / sum(sum(r1_conf_mat));
+        svm_output(num_files_processed).r1_macro_accuracy = (r1_conf_mat(1,1) / sum_r1_conf_mat(1) + r1_conf_mat(2,2) / sum_r1_conf_mat(2))/2;
+        svm_output(num_files_processed).r1_precision = r1_conf_mat(2,2) / (r1_conf_mat(2,2) + r1_conf_mat(1,2));
+        svm_output(num_files_processed).r1_recall = r1_conf_mat(2,2) / (r1_conf_mat(2,2) + r1_conf_mat(2,1));
+        svm_output(num_files_processed).r1_specificity = r1_conf_mat(1,1) / (r1_conf_mat(1,1) + r1_conf_mat(1,2));
         
         cum_conf_mat = cum_conf_mat + svm_output(num_files_processed).conf_mat;
         num_files_processed = num_files_processed + 1;
@@ -147,29 +158,78 @@ end
 avg_macro_accuracy = 0;
 avg_micro_accuracy = 0;
 avg_solo_accuracy = 0;
-avg_nonsolo_accuracy = 0;
-avg_r1_accuracy = 0;
 precision = 0;
 recall = 0;
 specificity = 0;
+avg_nonsolo_accuracy = 0;
+avg_r1_micro_accuracy = 0;
+avg_r1_macro_accuracy = 0;
+r1_precision = 0;
+r1_recall = 0;
+r1_specificity = 0;
 for i = 1:length(svm_output)
     avg_solo_accuracy = avg_solo_accuracy + svm_output(i).solo_accuracy;
     avg_nonsolo_accuracy = avg_nonsolo_accuracy + svm_output(i).nonsolo_accuracy;
     avg_macro_accuracy = avg_macro_accuracy + svm_output(i).macro_accuracy;
     avg_micro_accuracy = avg_micro_accuracy + svm_output(i).micro_accuracy;
-    avg_r1_accuracy = avg_r1_accuracy + svm_output(i).r1_accuracy;
     if ~isnan(svm_output(i).precision)
         precision = precision + svm_output(i).precision;
     end
     recall = recall + svm_output(i).recall;
     specificity = specificity + svm_output(i).specificity;
+    
+    avg_r1_micro_accuracy = avg_r1_micro_accuracy + svm_output(i).r1_micro_accuracy;
+    avg_r1_macro_accuracy = avg_r1_macro_accuracy + svm_output(i).r1_macro_accuracy;
+    if ~isnan(svm_output(i).r1_precision)
+        r1_precision = r1_precision + svm_output(i).r1_precision;
+    end
+    r1_recall = r1_recall + svm_output(i).r1_recall;
+    r1_specificity = r1_specificity + svm_output(i).r1_specificity;
+    
 end
 %avg_solo_accuracy = avg_solo_accuracy / length(svm_output)
 %avg_nonsolo_accuracy = avg_nonsolo_accuracy / length(svm_output)
-avg_macro_accuracy = avg_macro_accuracy / length(svm_output)
 avg_micro_accuracy = avg_micro_accuracy / length(svm_output)
-%avg_r1_accuracy = avg_r1_accuracy / length(svm_output)
+avg_macro_accuracy = avg_macro_accuracy / length(svm_output)
 precision = precision / length(svm_output)
 recall = recall / length(svm_output)
 specificity = specificity / length(svm_output)
+%avg_r1_micro_accuracy = avg_r1_micro_accuracy / length(svm_output)
+%avg_r1_macro_accuracy = avg_r1_macro_accuracy / length(svm_output)
+%r1_precision = r1_precision / length(svm_output)
+%r1_recall = r1_recall / length(svm_output)
+%r1_specificity = r1_specificity / length(svm_output)
 
+cum_macro_accuracy = [];
+cum_micro_accuracy = [];
+cum_precision = [];
+cum_recall = [];
+cum_specificity = [];
+for i = 1:length(svm_output) 
+    cum_macro_accuracy = [cum_macro_accuracy; svm_output(i).macro_accuracy];
+    cum_micro_accuracy = [cum_micro_accuracy; svm_output(i).micro_accuracy];
+    cum_precision = [cum_precision; svm_output(i).precision];
+    cum_recall = [cum_recall; svm_output(i).recall];
+    cum_specificity = [cum_specificity; svm_output(i).specificity];
+end
+cum_precision(isnan(cum_precision)) = 0;
+cum_macro_accuracy = reshape(cum_macro_accuracy, 6, 10);
+cum_micro_accuracy = reshape(cum_micro_accuracy, 6, 10);
+cum_precision = reshape(cum_precision, 6, 10);
+cum_recall = reshape(cum_recall, 6, 10);
+cum_specificity = reshape(cum_specificity, 6, 10);
+
+fold_m = mean(cum_micro_accuracy);
+fold_M = mean(cum_macro_accuracy);
+fold_p = mean(cum_precision);
+fold_r = mean(cum_recall);
+fold_S = mean(cum_specificity);
+
+std_m = std(fold_m);
+std_M = std(fold_M);
+std_p = std(fold_p);
+std_r = std(fold_r);
+std_S = std(fold_S);
+
+rmpath('PostProcessing/');
+rmpath('Utils/');

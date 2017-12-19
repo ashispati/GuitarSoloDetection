@@ -3,6 +3,7 @@
 Dataset/Pitch/*
 Dataset/Segments/*
 Dataset/Songs/*
+Code/dat/*
 
 # External Library Source Code #
 ################################
@@ -63,3 +64,8 @@ LibmusicxmlLibraryCode/*
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# MS office files #
+###################
+.doc
+.docx

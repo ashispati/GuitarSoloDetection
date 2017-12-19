@@ -1,9 +1,13 @@
+%% script to add fundamental pitch based features
+
 close all
 clear all
 clc
 
+addpath('PitchFeatures/');
+
 % load feature data
-load('data_60_seg.mat');
+load('data_60.mat');
 num_files = length(data);
 num_features = size(data(1).feature_matrix,1);
 
@@ -16,4 +20,5 @@ for i = 1:num_files
    data(i).feature_matrix = [data(i).feature_matrix; pitch_features];
 end
 
-save('data_60_seg_pitch.mat','data');
+save('data_60_only_pitch.mat','data');
+rmpath('PitchFeatures/');

@@ -1,4 +1,4 @@
-function [feature_matrix, time_stamp] = ComputerFeaturesForFile(x, window_size, hop, fs)
+function [feature_matrix, time_stamp] = ComputeFeaturesForFile(x, window_size, hop, fs)
 
 % objective: Computes the audio features of the input audio signal 
 % specified by the window size and hop size
