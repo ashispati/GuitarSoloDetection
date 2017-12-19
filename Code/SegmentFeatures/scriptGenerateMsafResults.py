@@ -3,8 +3,8 @@
 import os
 import ntpath
 
-inputpath = "../Dataset/Songs/"
-outputpath = "../Dataset/Segments/"
+inputpath = "../../Dataset/Songs/"
+outputpath = "../../Dataset/Segments/"
 
 i = 1
 for root, dirs, files in os.walk(inputpath):
