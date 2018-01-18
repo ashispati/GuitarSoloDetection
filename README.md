@@ -24,3 +24,7 @@ The folder structure is as follows:
   - ```song_lists.txt``` which lists the names and discog information of the songs present in the dataset.
   - ```Annotations``` folder which contains the individual ```.txt``` files containing the start-time and durations (in seconds) of guitar solo segments present in those songs.
 * Code: which contains the scripts and functions to extract different features and train and evaluate an SVM (Support Vector Machine) based model.
+
+<a name="License"></a>License
+--------------------
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
